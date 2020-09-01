@@ -1,0 +1,67 @@
+seed: 233574
+device:
+  use_gpu: True
+  gpu_id: 0
+  parallel: False
+lr_scheduler:
+  name: 'step'
+  init_args:
+    lr_step_size: 50
+    lr_step_gamma: 0.2
+loss_func:
+  name: 'cel'
+  init_args: ~
+optimizer:
+  name: 'sgd'
+  lr: 0.02
+  momentum: 0.9
+  weight_decay: 0.0009
+model:
+  name: 'alexnet'
+  quant_model: False
+  init_args:
+    num_classes: 10
+dataset:
+  name: 'cifar10'
+  train_valid_split: 0.7
+  use_validation: False
+  aug: True
+  trainset:
+    root: '/scratch/CIFAR10'
+    download: True
+  testset:
+    root: '/scratch/CIFAR10'
+    download: True
+  base_transforms:
+    - name: 'torch_img2tensor'
+      init_args:
+    - name: 'normalize_mean_std'
+      init_args:
+        mean: [0.5, 0.5, 0.5]
+        std: [0.5, 0.5, 0.5]
+  aug_transforms:
+    - name: 'torch_random_hflip'
+      init_args:
+    - name: 'torch_random_rotate'
+      init_args:
+        degrees: 90
+    - name: 'torch_img2tensor'
+      init_args:
+    - name: 'normalize_mean_std'
+      init_args:
+        mean: [0.5, 0.5, 0.5]
+        std: [0.5, 0.5, 0.5]
+train:
+  num_worker: 32
+  batch_size: 100
+  num_epoch: 400
+  drop_last_batch: False
+  use_train_weighted_sampler: False
+  use_test_weighted_sampler: False
+  resume_from_best: False
+  result_dir: '/data/shanbhag/hgeng4/598/models'
+  model_src_path: ''
+  trainer: 'backprop'
+  print_freq: 100
+  train_model: True
+  save_model_by: 'acc'

@@ -24,16 +24,18 @@ evaluating on CPU is desired, please submit the issue in wiki.
 ## How to Develop New Neural Network Model
 To define new neural network model, the definition should be put in nn/models.py. If  the model
 needs some submodule, it is advised to use modules.py. After new model is defined, it must be declared in
-the lookup dictionary found in nn/model.py along with its corresponding input for profiling.
+the lookup dictionary found in nn/model.py along with its corresponding input for profiling. 
 
 If the new model needs a new training mechanism, it is advised to inherit the Trainer class 
 in nn/trainer.py. Two functions need to be overwritten to define the computation done for single batch
-during both training and evaluation
+during both training and evaluation. 
 
 If a new dataset is needed, the dataset class definition should be in nn/dataset.py. 
 
 If a new nn transform is needed, it is advised to define them in nn/transforms.py
 
 Preprocessing for 2d (Img) data is put in ./vision and that for 1d data is put in ./audio
+
+You can also leverage the API defined in nn/quantization.py to try out fixed-point techniques
 
 

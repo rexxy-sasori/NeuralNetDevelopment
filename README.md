@@ -6,8 +6,8 @@ python main_train.py [YAML File Path]
 
 This command will train a neural network model either from scratch or from a 
 previously trained model. In the yaml folder, 1 YAML files for Alexnet on CIFAR10 has been prepared.
-In the yaml file, the dataset_dir and result_dir
-arguments need to be set properly. The training script will save the save the best model as
+In the yaml file, the result_dir needs to be set properly along with any possible path if necessary.
+The training script will save the save the best model as
 specified in the yaml file. It also offers an option to split the training data to create
 a validation set. If use_validation is set to False, then the script will save the model with
 either the best test error or test loss. 

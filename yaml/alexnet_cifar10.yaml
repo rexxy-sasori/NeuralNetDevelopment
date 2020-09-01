@@ -27,10 +27,10 @@ dataset:
   use_validation: False
   aug: True
   trainset:
-    root: '/scratch/CIFAR10'
+    root: './CIFAR10'
     download: True
   testset:
-    root: '/scratch/CIFAR10'
+    root: './CIFAR10'
     download: True
   base_transforms:
     - name: 'torch_img2tensor'
@@ -59,7 +59,7 @@ train:
   use_train_weighted_sampler: False
   use_test_weighted_sampler: False
   resume_from_best: False
-  result_dir: '/data/shanbhag/hgeng4/598/models'
+  result_dir: '/data/shanbhag/hgeng4/598/models' # YOU NEED TO RESET THIS !!
   model_src_path: ''
   trainer: 'backprop'
   print_freq: 100

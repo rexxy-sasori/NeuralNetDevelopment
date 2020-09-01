@@ -1,7 +1,7 @@
 """
 Author: Rex Geng
 
-trainer API. The abstract Trainer class defines the template.
+Trainer API. The abstract Trainer class defines the template.
 The child classes defines the concrete computation steps during training.
 The typical backprop trainer has been implemented. If new training techniques is needed
 Simply inherit the parent Trainer class and define the computation step.

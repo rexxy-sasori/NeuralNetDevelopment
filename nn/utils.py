@@ -166,8 +166,6 @@ class ImbalancedDatasetSampler(torch.utils.data.sampler.Sampler):
             return dataset.imgs[idx][1]
         elif self.callback_get_label:
             return self.callback_get_label(dataset, idx)
-        elif isinstance(dataset, datasetc.ATRDataset):
-            return dataset.labels[idx]
         # todo implement function to get the lbls of your customized datasets
         else:
             return NotImplementedError('dataset class lbl method not implemented')

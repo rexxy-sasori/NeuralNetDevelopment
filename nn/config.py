@@ -19,6 +19,7 @@ import torch.nn as nnd  # existing torch nn package
 from torchvision import transforms as tfd  # existing transforms
 
 from nn import dataset as datasetc
+from nn import lr_scheduler as lrsc
 from nn import models as modelsc
 from nn import quantization
 from nn import transforms as tfc  # customized transforms
@@ -34,18 +35,13 @@ def get_device(device_usr_configs):
 
 
 def get_lr_scheduler(optimizer, lr_scheduler_usr_configs):
-    if lr_scheduler_usr_configs.name == 'step':
-        scheduler = torch.optim.lr_scheduler.StepLR(
-            optimizer,
-            step_size=lr_scheduler_usr_configs.init_args.lr_step_size,
-            gamma=lr_scheduler_usr_configs.init_args.lr_step_gamma
-        )
-    elif lr_scheduler_usr_configs.name == 'rdp':
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, **lr_scheduler_usr_configs.init_args.__dict__
-        )
-    else:
-        raise NotImplementedError('learning rate scheduler not recognized')
+    lr_class = lrsc.__SCHEDULER__.get(lr_scheduler_usr_configs.name)
+    if lr_class is None:
+        raise NotImplementedError('lr scheduler not recognized {}'.format(lr_scheduler_usr_configs.name))
+
+    scheduler = lr_class(
+        optimizer, **lr_scheduler_usr_configs.init_args.__dict__
+    )
     return scheduler
 
 

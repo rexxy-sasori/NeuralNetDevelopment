@@ -6,8 +6,8 @@ device:
 lr_scheduler:
   name: 'step'
   init_args:
-    lr_step_size: 50
-    lr_step_gamma: 0.2
+    step_size: 50
+    gamma: 0.2
 loss_func:
   name: 'cel'
   init_args: ~

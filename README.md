@@ -5,7 +5,7 @@ To run the code, run the command:
 python main_train.py [YAML File Path]
 
 This command will train a neural network model either from scratch or from a 
-previously trained model. In the yaml folder, 1 YAML files for Alexnet on CIFAR10 has been prepared.
+previously trained model. In the yaml folder, 1 YAML file for Alexnet on CIFAR10 has been prepared.
 In the yaml file, the result_dir needs to be set properly along with any possible path if necessary.
 The training script will save the save the best model as
 specified in the yaml file. It also offers an option to split the training data to create

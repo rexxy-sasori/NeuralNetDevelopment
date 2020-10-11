@@ -59,15 +59,6 @@ def __get_preprocessing__(preprocessing_usr_configs):
 
 
 def get_loss_func(loss_func_usr_configs, weight=None):
-    if loss_func_usr_configs.name == 'cel':
-        criterion = nnd.CrossEntropyLoss()
-    elif loss_func_usr_configs.name == 'wcel':
-        criterion = nnd.CrossEntropyLoss(weight=weight)
-    elif loss_func_usr_configs.name == 'mse':
-        criterion = nnd.MSELoss()
-    else:
-        return NotImplementedError('loss function name not recognized')
-
     loss_class = lossc.__LOSS__.get(loss_func_usr_configs.name)
     if loss_class is None:
         raise NotImplementedError('loss function name not recognized {}'.format(loss_func_usr_configs.name))

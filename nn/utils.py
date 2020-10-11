@@ -17,8 +17,6 @@ import thop
 import torch
 import torchvision
 
-from nn import dataset as datasetc
-
 
 class AverageMeter:
     """Computes and stores the average and current value"""

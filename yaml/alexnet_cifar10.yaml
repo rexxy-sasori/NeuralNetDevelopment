@@ -37,8 +37,8 @@ dataset:
       init_args:
     - name: 'normalize_mean_std'
       init_args:
-        mean: [0.5, 0.5, 0.5]
-        std: [0.5, 0.5, 0.5]
+        mean: [ 0.5, 0.5, 0.5 ]
+        std: [ 0.5, 0.5, 0.5 ]
   aug_transforms:
     - name: 'torch_random_hflip'
       init_args:
@@ -49,8 +49,8 @@ dataset:
       init_args:
     - name: 'normalize_mean_std'
       init_args:
-        mean: [0.5, 0.5, 0.5]
-        std: [0.5, 0.5, 0.5]
+        mean: [ 0.5, 0.5, 0.5 ]
+        std: [ 0.5, 0.5, 0.5 ]
 train:
   num_worker: 32
   batch_size: 100

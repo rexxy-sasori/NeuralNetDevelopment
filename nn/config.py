@@ -19,8 +19,10 @@ import torch.nn as nnd  # existing torch nn package
 from torchvision import transforms as tfd  # existing transforms
 
 from nn import dataset as datasetc
+from nn import loss as lossc
 from nn import lr_scheduler as lrsc
 from nn import models as modelsc
+from nn import optimizer as optimizerc
 from nn import quantization
 from nn import transforms as tfc  # customized transforms
 from nn.trainer import __TRAINER__
@@ -66,29 +68,25 @@ def get_loss_func(loss_func_usr_configs, weight=None):
     else:
         return NotImplementedError('loss function name not recognized')
 
+    loss_class = lossc.__LOSS__.get(loss_func_usr_configs.name)
+    if loss_class is None:
+        raise NotImplementedError('loss function name not recognized {}'.format(loss_func_usr_configs.name))
+
+    if weight is not None:
+        criterion = loss_class(weight=weight)
+    else:
+        criterion = loss_class()
     return criterion
 
 
 def get_optimizer(model, optimizer_usr_configs):
-    if optimizer_usr_configs.name == 'sgd':
-        optimizer = torch.optim.SGD(
-            model.parameters(),
-            lr=optimizer_usr_configs.lr,
-            momentum=optimizer_usr_configs.momentum,
-            weight_decay=optimizer_usr_configs.weight_decay,
-        )
-    elif optimizer_usr_configs.name == 'adam':
-        optimizer = torch.optim.Adam(
-            model.parameters(), lr=optimizer_usr_configs.lr
-        )
-    elif optimizer_usr_configs.name == 'qsgd':
-        optimizer = quantization.QSGD(
-            model.parameters(),
-            lr=optimizer_usr_configs.lr, momentum=optimizer_usr_configs.momentum,
-            weight_decay=optimizer_usr_configs.weight_decay
-        )
-    else:
-        raise NotImplementedError('optimizer name not recognized')
+    optimizer_class = optimizerc.__OPTIMIZER__.get(optimizer_usr_configs.name)
+    if optimizer_class is None:
+        raise NotImplementedError('optimizer name not recognized {}'.format(optimizer_usr_configs.name))
+
+    optimizer = optimizer_class(
+        model.parameters(), **optimizer_usr_configs.init_args.__dict__
+    )
     return optimizer
 
 
